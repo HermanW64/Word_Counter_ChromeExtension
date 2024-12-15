@@ -39,6 +39,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "GET_COUNT") {
         sendResponse({count: wordCount});
     }
+    // return true: let the message channel open for asynchronous response
+    // Here it is not necessary, as message channel can be closed after sendResponse is called
     return true;
 });
 

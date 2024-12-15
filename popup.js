@@ -7,9 +7,11 @@ function updateWordCount() {
     console.log("updateWordCount is called");
     const countDisplay = document.getElementById("wordCount");
 
-    // listen for message from content.js
     // Query the active tab to get the count from content.js
+    // Find the active tabs and return an array of active tabs (in-focus & in browser window)
+    // tabs actually has only one element
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        // send a message to content.js (running in the current active tab), message type: "GET_COUNT"
         chrome.tabs.sendMessage(tabs[0].id, {type: "GET_COUNT"}, (response) => {
             if (chrome.runtime.lastError) {
                 console.log("Error:", chrome.runtime.lastError.message);
@@ -25,16 +27,6 @@ function updateWordCount() {
     console.log("updateWordCount is called");
 }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-    updateWordCount();
-})
-
-/*
-document.addEventListener("visibilitychange", () => {
-    // popup window is visible
-    if (!document.hidden) {
-        updateWordCount();
-    }
-});
-*/
+// Wait for the DOM content (pop-up window) to load
+// Reason: the file is linked to the html file
+document.addEventListener("DOMContentLoaded", updateWordCount);
