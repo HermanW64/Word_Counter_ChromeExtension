@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Word Counter",
+  "version": "1.0",
+  "description": "A simple Chrome extension to count the number of words in current page.",
+  "action": {
+    "default_popup": "popup.html", 
+    "default_icon": {
+      "128": "icons/WordCounterIcon128.png"
+    }
+  },
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "icons": {
+    "128": "icons/WordCounterIcon128.png"
+  },
+  "content_scripts": [
+    {
+        "js": ["content.js"],
+        "matches":["<all_urls>"]
+    }
+  ]
+}
